@@ -57,7 +57,7 @@ Each return value must be an integer, signed or unsigned, that fits into a byte
 | --- | --- | --- | --- | --- |
 | 0 | Read  | `ptr int64 fd`  | `ltr int8 count`  | `ptr char[] buf`
 | 1 | Write | `ptr int64 fd`  | `ptr char[] buf` | `int8 status`
-| 2 | Open  | `ptr char[] filename` | `int8 file_mode`
+| 2 | Open  | `ptr char[] filename` | `int8 file_mode` | `int8 status`
 | 3 | Close | `ptr int64 fd`
 | 4 | Tape Pointer  | | | `int64 pointer_value`
 
