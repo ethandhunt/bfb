@@ -58,7 +58,8 @@ Each return value must be an integer, signed or unsigned, that fits into a byte
 | 0 | Read  | `ptr int64 fd`  | `ltr int8 count`  | `ptr char[] buf`
 | 1 | Write | `ptr int64 fd`  | `ptr char[] buf` | `int8 status`
 | 2 | Open  | `ptr char[] filename` | `int8 file_mode`
-| 3 | Tape Pointer  | | | `int64 pointer_value`
+| 3 | Close | `ptr int64 fd`
+| 4 | Tape Pointer  | | | `int64 pointer_value`
 
 `ptr` is a 64bit unsigned integer signifying a location in memory
 
@@ -66,7 +67,8 @@ In interpreted implementations a pointer to the start of the tape can be 0
 
 #### file_mode
 
-- `r` opens for reading, will return a status of `1`
+- `0` opens for reading, will return a status of `1`
+- `1` opens and truncates a file for writing
 
 #### Write call status values
 - `0` write successful
