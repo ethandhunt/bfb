@@ -63,14 +63,14 @@ Pulling off of the Interface Stack after reaching the bottom results in undefine
 | Op| Name          | Arg 1                 | Arg 2             | Arg 3                   | Ret 1 |
 | - | ------------- | --------------------- | ----------------- | ----------------------- | ----- |
 | 0 | Read8         | `int8 fd`             | `int8 count`      | `ptr char[] buf`        |
-| 1 | Write8        | `int8 fd`             | `ptr char[] buf`  |                         |
+| 1 | Write8        | `int8 fd`             | `int8 count`      | `ptr char[] buf`        |
 | 2 | Open8         | `ptr char[] filename` | `int8 file_mode`  |                         | `int8 fd`
 | 3 | Close8        | `int8 fd`             |                   |                         |
 | 4 | TapeOrigin    |                       |                   |                         | `int64 origin_pointer`
 | 5 | TapePos       |                       |                   |                         | `int64 pointer_value`
 | 6 | Fork          |                       |                   |                         | `bool forked`
 | 7 | PID           |                       |                   |                         | `int64 PID`
-| 8 | Exit          | `ptr int64 exit_code` |                   |                         |
+| 8 | Exit          | `int64 exit_code`     |                   |                         |
 
 `ptr` is a 64bit unsigned integer signifying a location in memory represented by pushing 8 values onto the Interface Stack
 
@@ -122,14 +122,14 @@ read from STDIN
 We will read 1 byte from STDIN and store it in the byte under the tape pointer
 
 Get the tape pointer onto the stack
-+++++ 5
++++++ 5, call tapePos()
 .     Push onto the stack
 %     Call the stack
 
-----  1
+----  1, count argument
 .     Push onto the stack
 
--     0
+-     0, fd argument, 0 is the fd for STDIN
 .     Push onto the stack
 
 %     Call the stack
@@ -142,11 +142,30 @@ Opcode: 1
 ```
 
 #### fd
+As the file descriptor is stored as 1 byte, only 256 individual files can be written to using this opcode
 
+The file descriptor returned by Open8 should be used with this call
+
+File descriptors returned by other Open* calls do not have to work with this call
+
+#### count
+As this argument is only 1 byte, it means that with this call a max of only 256 bytes can be written at a time
+
+If this argument is `0` then it will result in undefined behaviour
 
 #### buf
+This argument is formed of 8 bytes, representing a 64 bit pointer to a memory location
 
-#### Code Examples
+`TapePos()` can be used to push the position of a buffer
+
+#### Code Example
+```bf
+Write to STDOUT
+
+We will store the value 69 ('E') in the cell under the pointer and then write it to STDOUT
+
+Get the tape pointer onto the stack
+```
 
 ### Open8
 #### file_mode
