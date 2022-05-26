@@ -9,7 +9,7 @@ Version of brainfuck with reworked file IO
 - `[` Conditional jump to the instruction after it's corresponding `]` instruction, jumps if the byte under the tape pointer is `0`
 - `]` Unconditional jump to it's corresponding `[` instruction
 - `,` Pull from the top of the Interface Stack and overwrite the byte under the tape pointer
-- `.` Push the byte under the pointer onto the Interface Stack, (does not overwrite the tape)
+- `.` Push the byte under the pointer onto the Interface Stack, (does not consume values on the tape)
 - `%` Calls the Interface Stack
 
 ## Interface Stack
@@ -126,10 +126,10 @@ Get the tape pointer onto the stack
 .     Push onto the stack
 %     Call the stack
 
-+     1
+----  1
 .     Push onto the stack
 
-      0
+-     0
 .     Push onto the stack
 
 %     Call the stack
