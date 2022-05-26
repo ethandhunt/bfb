@@ -59,9 +59,12 @@ Each return value must be an integer, signed or unsigned, that fits into a byte
 | 1 | Write | `ptr int64 fd`  | `ptr char[] buf` | `int8 status`
 | 2 | Open  | `ptr char[] filename` | `int8 file_mode` | `int8 status`
 | 3 | Close | `ptr int64 fd`
-| 4 | Tape Pointer  | | | `int64 pointer_value`
+| 4 | Tape Pointer  | | | `uint64 pointer_value`
+| 5 | Fork |
+| 6 | PID | | | `uint64 PID`
+| 7 | Exit | `ptr int64 exit_code`
 
-`ptr` is a 64bit unsigned integer signifying a location in memory
+`ptr` is a 64bit unsigned integer signifying a location in memory represented by pushing 8 values onto the Interface Stack
 
 In interpreted implementations a pointer to the start of the tape can be 0
 
