@@ -53,20 +53,21 @@ Each return value must be an integer, signed or unsigned, that fits into a byte
 
 ### Opcodes
 
-| Opcode | Name | Arg 1 | Arg 2 | Ret 1 |
-| --- | --- | --- | --- | --- |
-| 0 | Read  | `ptr int64 fd`  | `ltr int8 count`  | `ptr char[] buf`
-| 1 | Write | `ptr int64 fd`  | `ptr char[] buf` | `int8 status`
-| 2 | Open  | `ptr char[] filename` | `int8 file_mode` | `int8 status`
-| 3 | Close | `ptr int64 fd`
-| 4 | Tape Pointer  | | | `uint64 pointer_value`
-| 5 | Fork |
-| 6 | PID | | | `uint64 PID`
-| 7 | Exit | `ptr int64 exit_code`
+| Op| Name          | Arg 1                 | Arg 2             | Ret 1
+| - | ------------- | --------------------- | ----------------- | ----- |
+| 0 | Read          | `ptr int64 fd`        | `ltr int8 count`  | `ptr char[] buf`
+| 1 | Write         | `ptr int64 fd`        | `ptr char[] buf`  | `int8 status`
+| 2 | Open          | `ptr char[] filename` | `int8 file_mode`  | `int8 status`
+| 3 | Close         | `ptr int64 fd`        |                   |
+| 4 | Tape Pointer  |                       |                   | `uint64 pointer_value`
+| 5 | Fork          |                       |                   | `bool forked`
+| 6 | PID           |                       |                   | `uint64 PID`
+| 7 | Exit          | `ptr int64 exit_code` |                   |
 
 `ptr` is a 64bit unsigned integer signifying a location in memory represented by pushing 8 values onto the Interface Stack
+`bool` is 1 byte, `0` is false and any value that is not `0` is true
 
-In interpreted implementations a pointer to the start of the tape can be 0
+In interpreted implementations a pointer to the start of the tape can be `0`
 
 #### file_mode
 
