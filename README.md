@@ -132,6 +132,9 @@ Get the tape pointer onto the stack
 -     0, fd argument, 0 is the fd for STDIN
 .     Push onto the stack
 
+      0, read opcode
+.     Push onto the stack
+
 %     Call the stack
 ```
 
@@ -165,6 +168,9 @@ Write to STDOUT
 We will store the value 69 ('E') in the cell under the pointer and then write it to STDOUT
 
 Get the tape pointer onto the stack
++++++ 5, call tapePos()
+.     Push onto the stack
+%     Call the stack
 ```
 
 ### Open8
